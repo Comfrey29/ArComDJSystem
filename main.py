@@ -1,6 +1,6 @@
 import os
-import pygame
 import sys
+import pygame
 from spotipy import Spotify
 from spotipy.oauth2 import SpotifyClientCredentials
 
@@ -23,7 +23,7 @@ except Exception as e:
 # -----------------------------
 # CONFIGURACIÓ PYGAME
 # -----------------------------
-# Evita errors en entorns sense àudio
+# IMPORTANT: posar dummy abans de pygame.init()
 os.environ["SDL_AUDIODRIVER"] = "dummy"
 
 pygame.init()
@@ -37,7 +37,9 @@ except pygame.error:
     AUDIO_OK = False
     print("⚠️ No hi ha dispositiu d'àudio. Mode silenci activat.")
 
-# Pantalla
+# -----------------------------
+# CONFIGURACIÓ PANTALLA
+# -----------------------------
 WIDTH, HEIGHT = 800, 600
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("ArCom DJ System")
@@ -46,18 +48,19 @@ pygame.display.set_caption("ArCom DJ System")
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
+font = pygame.font.SysFont(None, 36)
+
 # -----------------------------
 # BUCLE PRINCIPAL
 # -----------------------------
 running = True
-font = pygame.font.SysFont(None, 36)
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # Dibuixa fons
+    # Fons
     screen.fill(BLACK)
 
     # Mostra missatge d'estat
